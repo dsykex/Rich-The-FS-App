@@ -1,0 +1,35 @@
+
+<ion-content padding>
+    <video autoplay muted loop class="firebg">
+        <source type="video/mp4" src="../../assets/imgs/firebg.mp4">
+      </video>
+  <div class="login-wrapper animated fadeIn">
+    <img wdith="70" height="70" src="../../assets/imgs/landing-logo.png" alt="" class="logo" />
+    <ion-list class="login-panel">
+       <ion-item  [ngStyle]="{'background':'none'}">
+        <ion-label floating>Username</ion-label>
+        <ion-input [(ngModel)]="user.email" type="text"></ion-input>
+      </ion-item>
+    
+      <ion-item  [ngStyle]="{'background':'none'}">
+        <ion-label floating>Password</ion-label>
+        <ion-input [(ngModel)]="user.password" type="password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <p *ngIf="loginError" class="errorTxt">{{loginError}}</p>
+     
+  </div>
+</ion-content>
+<ion-footer class="animated slideInUp">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+          <button ion-button block (click)="login()">Login</button>
+      </ion-col>
+      <ion-col col-6>
+          <button ion-button block (click)="signup()">Signup</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
+

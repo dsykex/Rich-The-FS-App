@@ -1,0 +1,57 @@
+page-home {
+    .homeNav ion-slide
+    {
+        color:#fff;
+    }
+    
+    .homeNav ion-slide ion-icon
+    {
+        font-size: 80px;
+    }
+
+    .bgImg
+    {
+        position:fixed;
+        z-index: 0;
+        top:0;
+        left:0;
+        bottom:0;
+        height:100%;
+        
+        opacity:0.4;
+        filter:grayscale(1);
+    }
+
+    .title
+    {
+        color:#fff;
+        padding:0;
+    }
+
+    .text-center
+    {
+        text-align: center;
+    }
+
+    .page-title, .page-icon
+    {
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .gradient-bg
+    {
+        position:fixed;
+        z-index: 0;
+        top:0;
+        left:0;
+        height:100%;
+        width:100%;
+        opacity:0.7;
+        background: #ccc;
+        background: #f3c5bd; /* Old browsers */
+        background: -moz-linear-gradient(-45deg, #f3c5bd 0%, #e86c57 50%, #ea2803 51%, #ff6600 75%, #c72200 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(-45deg, #f3c5bd 0%,#e86c57 50%,#ea2803 51%,#ff6600 75%,#c72200 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(135deg, #f3c5bd 0%,#e86c57 50%,#ea2803 51%,#ff6600 75%,#c72200 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3c5bd', endColorstr='#c72200',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    }
+}

@@ -1,0 +1,22 @@
+landing {
+
+    .middle
+    {
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        width:80%;
+        padding:3px;
+        text-align: center;
+    }
+
+    .logo
+    {
+        text-align:center;
+        margin-bottom:25px;
+
+    }
+    
+
+}

@@ -1,0 +1,36 @@
+<ion-header class="headerbg">
+  <ion-navbar>
+    <ion-title class="text-center">
+      <img src="../../assets/imgs/landing-logo.png" class="logo animated bounceInDown" width="40" height="40">
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background: #222">
+  <ion-fab top left>
+    <button ion-fab mini><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list>
+      <button ion-fab><ion-icon name="person"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+      <button ion-fab *ngIf="user && authService.isAdmin(user)"><ion-icon name="settings"></ion-icon></button>
+      <button ion-fab (click)="logout()"><ion-icon name="log-out"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <ion-slides #slides (ionSlideWillChange)="slideChanged()" class="homeNav">
+    <ion-slide>
+      <ion-icon (click)="bookSession()" name="time" class="page-icon"></ion-icon>
+      <h2 class="page-title">Book A Session</h2>
+    </ion-slide>
+    <ion-slide>
+      <ion-icon class="page-icon" (click)="beats()" name="musical-note"></ion-icon>
+      <h2 class="page-title">Beats</h2>
+    </ion-slide>
+    <ion-slide>
+      <ion-icon class="page-icon" name="call"></ion-icon>
+      <h2 class="page-title">Contact Me</h2>
+    </ion-slide>
+  </ion-slides>
+  <div class="gradient-bg"></div>
+  <img [src]="slideImg" alt="" class="bgImg"/>
+</ion-content>
