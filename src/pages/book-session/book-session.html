@@ -17,10 +17,10 @@
                   <ion-card>
                       <ion-card-content>
                             <p *ngIf="settings" class="text-center priceText">Sessions are set at <b>${{settings[0].pricePerHour}}</b> per hour.</p>
-                            <p *ngIf="session.hours" class="text-center priceText">Session will be done at {{session.endTime}}.</p>              
+                            <p *ngIf="session.hours" class="text-center priceText">Session will be done at <b>{{session.endDate}}</b> at <b style="color:#d22300">{{session.endTime}}</b>              
                       </ion-card-content>
                   </ion-card>
-                  <h2 *ngIf="settings" class="price">${{price}}</h2>
+                  <h2 *ngIf="session.hours" class="price">${{price}}</h2>
                             
                   <ion-item>
                       <ion-label>Date:</ion-label>
@@ -32,7 +32,7 @@
               <ion-col col-12>
                   <ion-item>
                       <ion-label>Start Time:</ion-label>
-                      <ion-datetime (ionChange)="updateSessionInfo(session.startTime)" hourValues="02, 03, 04, 05, 06, 07, 08, 09, 10," displayFormat="h:mm " pickerFormat="h mm A" [(ngModel)]="session.startTime"></ion-datetime>
+                      <ion-datetime (ionChange)="updateSessionInfo(session.startTime)" displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="session.startTime"></ion-datetime>
                   </ion-item>
               </ion-col>
               <ion-col col-12>

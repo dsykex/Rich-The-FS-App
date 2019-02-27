@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Slides, Slide, NavOptions } from 'ionic-angular';
+import { NavController, Slides, Slide, NavOptions, DateTime } from 'ionic-angular';
 import {AngularFireDatabase} from 'angularfire2/database';
 import { Global } from '../../app/global';
 import { AuthService } from '../../services/AuthService';
@@ -11,7 +11,7 @@ import { SettingsService } from '../../services/SettingsService';
 })
 
 export class BookSession {
-
+public user: any;
   public session: any = {};
   currentYear: any = new Date().getFullYear();
 
@@ -29,44 +29,35 @@ export class BookSession {
 
   ngOnInit()
   {
-    console.log(Date.now());
+    
     this.settingsService.getSettings().subscribe(data => {
       console.log(data);
       this.settings = data;
     });
 
-    console.log(this.settings);
+    this.authService.getUserInfo().subscribe(user => {
+      this.user = user;
+    });
+
   }
 
   public updateSessionInfo(time:string)
   {
-    if(this.session.hours > 0)
-      this.price = this.session.hours * this.settings[0].pricePerHour;
-    else
-      this.session.hours = 0;
+    var date = Date.parse(this.session.date + ', ' + this.session.startTime);
 
-    var timeSplit = time.split(':');
-    var hour = parseInt(timeSplit[0]);
-    var minute = parseInt(timeSplit[1]);
-
-    if(this.session.hours > 0)
-    {
-      hour = hour + parseInt(this.session.hours);
-      
-      if(hour > 24)
-        hour = 0;
-    }
+    this.price = this.session.hours * this.settings[0].pricePerHour;
+    this.session.endDate = new Date(date+(this.session.hours * 3600000)).toDateString();
+    var sTime = this.toStandardTime(this.session.startTime); 
+    this.session.endTime = this.toStandardTime(new Date(date+(this.session.hours * 3600000)).toTimeString());
     
-    var timeConversion = hour + ':' + timeSplit[1];
-  
-    this.session.endTime = this.toStandardTime(timeConversion);
-    console.log(this.session.endTime);
+    console.log(sTime);
   }
 
   public toStandardTime(time: string)
   {
-    var hours = Number(time[0]);
-    var minutes = Number(time[1]);
+    var timeSplit = time.split(':');
+    var hours = Number(timeSplit[0]);
+    var minutes = Number(timeSplit[1]);
 
     // calculate
     var timeValue;
@@ -81,16 +72,17 @@ export class BookSession {
     
     timeValue += (minutes < 10) ? ":0" + minutes : ":" + minutes;  // get minutes
     timeValue += (hours >= 12) ? " P.M." : " A.M.";  // get AM/PM
-
-    console.log(timeValue);
+  
+    return timeValue;
   }
 
   bookSession()
   {
-    console.log(this.session);
     if(this.session.date && this.session.startTime && this.session.endTime && this.session.hours)
     {
-
+        var sTime = this.toStandardTime(this.session.startTime);
+        this.session.user = this.user.email;
+        console.log(this.session);
     }
   }
 }
