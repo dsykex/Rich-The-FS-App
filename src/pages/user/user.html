@@ -1,0 +1,23 @@
+
+<ion-header (click)="pop()">
+  <ion-navbar hideBackButton>
+    <ion-title class="text-center">My Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>{{user.name}}</h2>
+  <ion-card color="light">
+    <ion-card-header>
+      <ion-card-title>
+        Session Info
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p class="text-center" *ngIf="!hasSession()">You don't have an active session.</p>
+      <div *ngIf="hasSession()">
+        Date: <b>{{session.date}}</b>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

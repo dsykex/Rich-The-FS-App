@@ -1,11 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Slides, Slide, LoadingController } from 'ionic-angular';
+import { NavController, Slides, Slide, LoadingController, AlertController } from 'ionic-angular';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {Global} from '../../app/global';
 import {Beats} from '../beats/beats';
 import {BookSession} from '../book-session/book-session';
 import { AuthService } from '../../services/AuthService';
 import { Login } from '../login/login';
+import { UserPage } from '../user/user';
 
 @Component({
   selector: 'page-home',
@@ -18,7 +19,7 @@ export class Home {
   slideImg: any;
   user: any = {};
 
-  constructor(public navCtrl: NavController, public loadCtrl: LoadingController, public authService: AuthService, public af: AngularFireDatabase)
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public loadCtrl: LoadingController, public authService: AuthService, public af: AngularFireDatabase)
   {
 
   }
@@ -40,6 +41,35 @@ export class Home {
 
   bookSession()
   {
+    let sessionSub = this.af.list("Sessions").valueChanges(['child_added']).subscribe(data => {
+      let session = data.filter(s => {return s['email'] == this.user.email})[0];
+      console.log(session);
+      if(session!=null)
+      {
+        let sessionAlert = this.alertCtrl.create({
+          message: 'You already have a session.',
+          buttons: [
+            {
+              text: 'Session Details',
+              handler: () => {
+                this.navCtrl.push(UserPage);
+              }
+            },
+            {
+              text: 'Dismiss',
+              role: 'cancel',
+              handler: () => {
+                console.log('Buy clicked');
+              }
+            }
+          ]
+        });
+
+        sessionAlert.present();
+      }
+
+    });
+    sessionSub.unsubscribe();
     this.navCtrl.push(BookSession);
   }
 
@@ -61,6 +91,11 @@ export class Home {
         this.navCtrl.setRoot(Login);
       }, 3000);
     });
+  }
+  
+  userPage()
+  {
+    this.navCtrl.push(UserPage);
   }
 
   slideChanged()

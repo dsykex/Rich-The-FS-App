@@ -6,39 +6,35 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
- <div class="session-info">
-
- </div>
-
   <ion-list>
       <ion-grid>
           <ion-row>
               <ion-col col-12>
-                  <ion-card>
+                  <ion-card class="animated fadeIn">
                       <ion-card-content>
                             <p *ngIf="settings" class="text-center priceText">Sessions are set at <b>${{settings[0].pricePerHour}}</b> per hour.</p>
                             <p *ngIf="session.hours" class="text-center priceText">Session will be done at <b>{{session.endDate}}</b> at <b style="color:#d22300">{{session.endTime}}</b>              
                       </ion-card-content>
                   </ion-card>
-                  <h2 *ngIf="session.hours" class="price">${{price}}</h2>
+                  <h2 *ngIf="session.hours" class="price animated bounceIn">${{price}}</h2>
                             
                   <ion-item>
                       <ion-label>Date:</ion-label>
-                      <ion-datetime [(ngModel)]="session.date" min="{{currentYear}}"></ion-datetime>
+                      <ion-datetime (ionChange)="updateSessionInfo(session.sTime)" [(ngModel)]="session.date" min="{{currentYear}}"></ion-datetime>
                   </ion-item>
               </ion-col>
           </ion-row>
           <ion-row>
               <ion-col col-12>
-                  <ion-item>
+                  <ion-item *ngIf="session.date" class="animated fadeIn">
                       <ion-label>Start Time:</ion-label>
-                      <ion-datetime (ionChange)="updateSessionInfo(session.startTime)" displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="session.startTime"></ion-datetime>
+                      <ion-datetime (ionChange)="updateSessionInfo(session.sTime)" displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="session.sTime"></ion-datetime>
                   </ion-item>
               </ion-col>
               <ion-col col-12>
-                  <ion-item *ngIf="session.startTime" class="animated fadeIn">
+                  <ion-item *ngIf="session.sTime" class="animated fadeIn">
                       <ion-label>Hours:</ion-label>
-                      <ion-input (ionChange)="updateSessionInfo(session.startTime)" type="number" [(ngModel)]="session.hours"></ion-input>
+                      <ion-input (ionChange)="updateSessionInfo(session.sTime)" type="number" [(ngModel)]="session.hours"></ion-input>
                   </ion-item>
               </ion-col>
           </ion-row>
@@ -51,9 +47,22 @@
                     </ion-item>
               </ion-col>
           </ion-row>
+          <br/>
+          <ion-list *ngIf="session.hours" class="animated fadeInUp">
+            <ion-item>
+              <ion-label>Choose your payment option</ion-label>
+              <ion-select [(ngModel)]="session.payment">
+                <ion-option value="cash">Cash</ion-option>
+                <ion-option value="cashapp">CashApp</ion-option>
+                <ion-option value="paypal">PayPal</ion-option>
+               
+              </ion-select>
+            </ion-item>
+          </ion-list>
       </ion-grid>
-  </ion-list>
+    </ion-list>
+    
 </ion-content>
-<ion-footer>
+<ion-footer *ngIf="session.payment" class="animated slideInUp">
     <button ion-button block (click)="bookSession()">Book Session</button>
 </ion-footer>

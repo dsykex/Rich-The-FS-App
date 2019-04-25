@@ -64,7 +64,7 @@ export class Login {
   signup()
   {
     let alert = this.alertCtrl.create({
-      message: 'Password must be 6 characters or more.',
+      message: '',
       inputs: [
         {
           name: 'name',
@@ -105,7 +105,7 @@ export class Login {
               {
                 //console.log('AWESOME');
                 
-                this.af.list("/Users").valueChanges(['child_added']).subscribe(users => {
+                let usersSub = this.af.list("/Users").valueChanges(['child_added']).subscribe(users => {
                   let user  = null;
                   console.log(users);
                   if(users)
@@ -116,12 +116,17 @@ export class Login {
 
                   if(!user)
                   {
-                    firebase.auth().createUserWithEmailAndPassword(data.email, data.password).then(()=>{
-                      firebase.auth().signInWithEmailAndPassword(data.email,data.password).then(()=>{
-                                              
-                      this.navCtrl.setRoot(Home);
+                    user = data;
+                    user.createdAt = Date.now();
+                    user.confirmPassword = null;
+                 
+                    firebase.auth().createUserWithEmailAndPassword(data.email, data.password).then(() => {
+                      this.af.list("/Users").push(user);
+                      usersSub.unsubscribe();
+                      firebase.auth().signInWithEmailAndPassword(data.email,data.password).then(() => {                      
+                        this.navCtrl.setRoot(Home);
                       });
-                    }).catch(()=>{
+                    }).catch(() => {
                       this.errorHdr("An error occured while processing your account. Make sure that your email is formatted correctly and password is 6 characters or more.",7000);
                     });
                   }else

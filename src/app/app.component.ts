@@ -11,12 +11,13 @@ import {timer} from 'rxjs/observable/timer';
 @Component({
   templateUrl: 'app.html'
 })
+
 export class MyApp {
   rootPage:any = Landing;
-
   showSplash = true;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) 
+  {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -25,7 +26,7 @@ export class MyApp {
 
       timer(3300).subscribe(() => {
         this.showSplash = false;
-      })
+      });
     });
   }
 }

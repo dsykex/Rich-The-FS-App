@@ -15,6 +15,7 @@ import { AuthService } from '../services/AuthService';
 import { ResDataPage } from '../pages/res-data/res-data';
 import { Login } from '../pages/login/login';
 import { SettingsService } from '../services/SettingsService';
+import { UserPage } from '../pages/user/user';
 
 export const  fbConfig = {
   apiKey: "AIzaSyAT2j-HxrOKxnTS8m7yotXnrl0mJADJiMk",
@@ -33,8 +34,8 @@ export const  fbConfig = {
     BookSession,
     Landing,
     ResDataPage,
-    Login
-
+    Login,
+    UserPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +51,8 @@ export const  fbConfig = {
     BookSession,
     Landing,
     ResDataPage,
-    Login
+    Login,
+    UserPage
   ],
   providers: [
     StatusBar,

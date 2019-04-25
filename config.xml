@@ -84,4 +84,5 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-splashscreen" spec="https://github.com/apache/cordova-plugin-splashscreen.git" />
     <engine name="android" spec="^7.1.4" />
+    <plugin name="cordova-sms-plugin" spec="1.0.0" />
 </widget>

@@ -11,6 +11,7 @@ import { Login } from '../login/login';
   selector: 'landing',
   templateUrl: 'landing.html',
 })
+
 export class Landing 
 {
   constructor(public authService: AuthService, public navCtrl: NavController, public af: AngularFireDatabase, public alertCtrl: AlertController)
@@ -20,12 +21,10 @@ export class Landing
 
   ngOnInit()
   {
-
     this.authService.getUserInfo().subscribe(user => {
       console.log(user);
       if(user.email)
       {
-        
         this.navCtrl.setRoot(Home);
       }else
       {
